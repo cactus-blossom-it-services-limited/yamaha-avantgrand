@@ -10,7 +10,7 @@ require 'contrib/rsync.php';
 set('application', 'yamaha-avantgrand');
 set('repository', 'git@github.com:cactus-blossom-it-services-limited/yamaha-avantgrand.git');
 set('ssh_multiplexing', true);  // Speed up deployment
-set('identity_file', '~/.ssh/id_rsa');
+set('identity_file', '/root/.ssh/id_rsa');
 set('deploy_path', '/var/www/cactusblossomitservices.com');
 //set('default_timeout', 1000);
 
@@ -37,7 +37,7 @@ add('writable_dirs', []);
 // Set up a deployer task to copy secrets to the server.
 // Grabs the dotenv file from the github secret
 task('deploy:secrets', function () {
-    file_put_contents(__DIR__ . '.env', getenv('DOT_ENV'));
+    file_put_contents('/var/www/cactusblossomitservices.com' . '.env', getenv('DOT_ENV'));
     upload('.env', get('deploy_path') . '/shared');
 });
 
