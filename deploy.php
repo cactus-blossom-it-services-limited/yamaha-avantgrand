@@ -35,7 +35,7 @@ add('writable_dirs', []);
 // Set up a deployer task to copy secrets to the server.
 // Grabs the dotenv file from the github secret
 task('deploy:secrets', function () {
-    file_put_contents('/var/www/cactusblossomitservices.com/.env', getenv('DOT_ENV'));
+    file_put_contents(__DIR__ . '.env', getenv('DOT_ENV'));
     upload('.env', get('deploy_path') . '/shared');
 });
 
