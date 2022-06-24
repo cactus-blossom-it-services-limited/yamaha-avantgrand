@@ -10,7 +10,7 @@ require 'contrib/rsync.php';
 set('application', 'yamaha-avantgrand');
 set('repository', 'git@github.com:cactus-blossom-it-services-limited/yamaha-avantgrand.git');
 set('ssh_multiplexing', true);  // Speed up deployment
-set('identity_file', '~/.ssh/id_rsa');
+set('identity_file', '/home/deployer/.ssh/id_rsa');
 set('deploy_path', '/var/www/cactusblossomitservices.com');
 //set('default_timeout', 1000);
 
