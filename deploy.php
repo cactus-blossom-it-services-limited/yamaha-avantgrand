@@ -49,7 +49,7 @@ host('prod') // Name of the server
 ->set('branch', 'main') // Git branch
 ->set('deploy_path', '/var/www/cactusblossomitservices.com'); // Deploy path
 
-after('deploy:failed', 'deploy:unlock');  // Unlock after failed deploy
+//after('deploy:failed', 'deploy:unlock');  // Unlock after failed deploy
 
 ///////////////////////////////////
 // Tasks
