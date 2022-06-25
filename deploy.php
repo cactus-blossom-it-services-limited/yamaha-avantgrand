@@ -13,6 +13,7 @@ require 'contrib/rsync.php';
 set('application', 'yamaha-avantgrand');
 set('repository', 'git@github.com:cactus-blossom-it-services-limited/yamaha-avantgrand.git'); // Git Repository
 set('ssh_multiplexing', true);  // Speed up deployment
+set('use_relative_symlink', false);
 //set('default_timeout', 1000);
 
 set('rsync_src', function () {
