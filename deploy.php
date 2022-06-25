@@ -17,7 +17,7 @@ set('use_relative_symlink', false);
 //set('default_timeout', 1000);
 
 set('rsync_src', function () {
-    return __DIR__'; // If your project isn't in the root, you'll need to change this.
+    return __DIR__; // If your project isn't in the root, you'll need to change this.
 });
 
 // Configuring the rsync exclusions.
