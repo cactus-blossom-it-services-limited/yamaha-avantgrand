@@ -1,20 +1,22 @@
-<?php
+ <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
 require 'contrib/npm.php';
 require 'contrib/rsync.php';
 
+///////////////////////////////////    
 // Config
+///////////////////////////////////
 
 set('application', 'yamaha-avantgrand');
-set('repository', 'git@github.com:cactus-blossom-it-services-limited/yamaha-avantgrand.git');
+set('repository', 'git@github.com:cactus-blossom-it-services-limited/yamaha-avantgrand.git'); // Git Repository
 set('ssh_multiplexing', true);  // Speed up deployment
-set('deploy_path', '/var/www/cactusblossomitservices.com');
 //set('default_timeout', 1000);
 
 set('rsync_src', function () {
-    return '/var/www/cactusblossomitservices.com'; // If your project isn't in the root, you'll need to change this.
+    return __DIR__; // If your project isn't in the root, you'll need to change this.
 });
 
 // Configuring the rsync exclusions.
@@ -29,25 +31,28 @@ add('rsync', [
     ],
 ]);
 
-add('shared_files', []);
-add('shared_dirs', []);
-add('writable_dirs', []);
-
 // Set up a deployer task to copy secrets to the server.
 // Grabs the dotenv file from the github secret
 task('deploy:secrets', function () {
-    file_put_contents('/var/www/cactusblossomitservices.com' . '.env', getenv('DOT_ENV'));
+    file_put_contents(__DIR__ . '/.env', getenv('DOT_ENV'));
     upload('.env', get('deploy_path') . '/shared');
 });
 
+///////////////////////////////////
 // Hosts
+///////////////////////////////////
 
-host('prod')
-		->setHostname('indigo.cactusblossomitservices.com') // Hostname or IP address
-    ->set('remote_user', 'deployer')
-    ->set('deploy_path', '/var/www/cactusblossomitservices.com');
+host('prod') // Name of the server
+->setHostname('159.65.61.235') // Hostname or IP address
+->set('remote_user', 'deployer') // SSH user
+->set('branch', 'main') // Git branch
+->set('deploy_path', '/var/www/cactusblossomitservices.com'); // Deploy path
 
+after('deploy:failed', 'deploy:unlock');  // Unlock after failed deploy
+
+///////////////////////////////////
 // Tasks
+///////////////////////////////////
 
 desc('Start of Deploy the application');
 
@@ -56,13 +61,13 @@ task('deploy', [
     'rsync',                // Deploy code & built assets
     'deploy:secrets',       // Deploy secrets
     'deploy:vendors',
-    'deploy:shared',        //
+    'deploy:shared',        // 
     'artisan:storage:link', //
     'artisan:view:cache',   //
     'artisan:config:cache', // Laravel specific steps
     'artisan:migrate',      //
     'artisan:queue:restart',//
-    'deploy:publish',       //
+    'deploy:publish',       // 
 ]);
 
 desc('End of Deploy the application');
