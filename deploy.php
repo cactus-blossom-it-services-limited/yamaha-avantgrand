@@ -17,7 +17,7 @@ set('use_relative_symlink', false);
 //set('default_timeout', 1000);
 
 set('rsync_src', function () {
-    return 'var/www/cactusblossomitservices.com'; // If your project isn't in the root, you'll need to change this.
+    return __DIR__'; // If your project isn't in the root, you'll need to change this.
 });
 
 // Configuring the rsync exclusions.
@@ -35,7 +35,7 @@ add('rsync', [
 // Set up a deployer task to copy secrets to the server.
 // Grabs the dotenv file from the github secret
 task('deploy:secrets', function () {
-    file_put_contents('/var/www/cactusblossomitservices.com' . '/.env', getenv('DOT_ENV'));
+    file_put_contents(__DIR__ . '/.env', getenv('DOT_ENV'));
     upload('.env', get('deploy_path') . '/shared');
 });
 
