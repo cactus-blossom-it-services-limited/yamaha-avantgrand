@@ -12,4 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::post('/books', 'App\Http\Controllers\BooksController@store');
+Route::get('/', function () {
+    return view('welcome');
+});
+// Route::post('/books', 'App\Http\Controllers\BooksController@store');
